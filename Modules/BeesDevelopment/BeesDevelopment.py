@@ -1,8 +1,9 @@
 import random
-from Defines import *
 
-class BeeDevelopmentModule:
-    def __init__(self, eggs, larva, before_pupa, pupa, imago):
+from Modules.BeesDevelopment.Defines import *
+
+class BeesDevelopment:
+    def __init__(self, eggs, larva, before_pupa, pupa, imago, workers):
         self.stage_eggs = [eggs]  # 3 dniowy etap jaj
         self.eggs_counter = eggs
 
@@ -27,10 +28,10 @@ class BeeDevelopmentModule:
         temp = int(imago * PERCENT_OF_WORKER)
         self.imago_worker_young = [temp]  # dorosly osobnik robotnicy do 10dni
         self.imago_worker_young_counter = temp
-        self.imago_worker_nectar_collectors = []  # dorosly osobnik robotnicy powyżej 10dni (80%% zbiera nektar, 20% zbiera pyłek)
-        self.nectar_collectors = 0
-        self.imago_worker_pollen_collectors = []
-        self.pollen_collectors = 0
+        self.imago_worker_nectar_collectors = [int(0.8*workers)]  # dorosly osobnik robotnicy powyżej 10dni (80%% zbiera nektar, 20% zbiera pyłek)
+        self.nectar_collectors = int(0.8*workers)
+        self.imago_worker_pollen_collectors = [int(0.2*workers)]
+        self.pollen_collectors = int(0.2*workers)
         self.imago_drone = [imago - temp]  # dorosły osobnik truteń
         self.imago_drone_counter = imago - temp
 
