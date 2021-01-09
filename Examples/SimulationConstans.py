@@ -1,0 +1,2 @@
+#### CONST ####
+NUM_OF_SIMULATED_DAYS = 2
