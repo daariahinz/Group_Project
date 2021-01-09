@@ -15,8 +15,6 @@ from matplotlib import pyplot
 from PyQt5.QtCore import Qt, pyqtSlot
 
 
-
-
 def changed_value(slider, label, string, laying_eggs):
     size = slider.value()
     label.setText(str(size))
