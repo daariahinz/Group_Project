@@ -54,9 +54,9 @@ class LogicInterface(QWidget):
         self.bees_num_value = bees
         self.pollen_value = pollen
         self.temperature_value = temperature
-        self.day_length_value = day
+        # self.day_length_value = day
 
-        self.temperature = QSlider
+        self.month = QSlider
         self.pollen = QSlider
         self.temperature = self.create_slider(1, 12, 1)
         self.label_temp = QLabel("0")
@@ -64,8 +64,8 @@ class LogicInterface(QWidget):
         self.label_pollen = QLabel("0")
         self.bees = self.create_slider(0, 80000, 1000)
         self.label_bees = QLabel("0")
-        self.day = self.create_slider(8, 18, 1)
-        self.label_day = QLabel("8")
+        # self.day = self.create_slider(8, 18, 1)
+        # self.label_day = QLabel("8")
 
         button_generate = QPushButton('Generate', self)
         button_generate.clicked.connect(self.generate_eggs)
@@ -73,8 +73,8 @@ class LogicInterface(QWidget):
         button_temperature = QPushButton('Show dependence on temperature', self)
         button_temperature.clicked.connect(self.on_click_temp)
 
-        button_day = QPushButton('Show dependence on day length', self)
-        button_day.clicked.connect(self.on_click_day)
+        # button_day = QPushButton('Show dependence on day length', self)
+        # button_day.clicked.connect(self.on_click_day)
 
         button_pollen = QPushButton('Show dependence on pollen amount', self)
         button_pollen.clicked.connect(self.on_click_pollen)
@@ -90,16 +90,16 @@ class LogicInterface(QWidget):
         self.pollen.valueChanged.connect(
             lambda: changed_value(self.pollen, self.label_pollen, 'pollen', self.laying_eggs))
         self.bees.valueChanged.connect(lambda: changed_value(self.bees, self.label_bees, 'bees num', self.laying_eggs))
-        self.day.valueChanged.connect(lambda: changed_value(self.day, self.label_day, 'day length', self.laying_eggs))
+        # self.day.valueChanged.connect(lambda: changed_value(self.day, self.label_day, 'day length', self.laying_eggs))
 
         grid.addWidget(self.create_example_group("Miesiac startowy", self.temperature, self.label_temp), 0, 0)
         grid.addWidget(self.create_example_group("Pokarm [kg]", self.pollen, self.label_pollen), 1, 0)
         grid.addWidget(self.create_example_group("Liczba pszczół [os]", self.bees, self.label_bees), 2, 0)
-        grid.addWidget(self.create_example_group("Długość dnia [h]", self.day, self.label_day), 3, 0)
+        # grid.addWidget(self.create_example_group("Długość dnia [h]", self.day, self.label_day), 3, 0)
         grid.addWidget(button_generate, 4, 0)
         grid.addWidget(button_inputs, 5, 0)
         grid.addWidget(button_temperature, 6, 0)
-        grid.addWidget(button_day, 7, 0)
+        # grid.addWidget(button_day, 7, 0)
         grid.addWidget(button_pollen, 8, 0)
         grid.addWidget(button_start, 9, 0)
         graphWidget = pg.PlotWidget()
@@ -127,8 +127,8 @@ class LogicInterface(QWidget):
         return slider
 
     def on_apply(self):
-        changed_value(self.temperature, self.label_temp, 'temperature', self.laying_eggs)
-        changed_value(self.day, self.label_day, 'day length', self.laying_eggs)
+        # changed_value(self.temperature, self.label_temp, 'temperature', self.laying_eggs)
+        # changed_value(self.day, self.label_day, 'day length', self.laying_eggs)
 
         changed_value(self.pollen, self.label_pollen, 'pollen', self.laying_eggs)
         changed_value(self.bees, self.label_bees, 'bees num', self.laying_eggs)
