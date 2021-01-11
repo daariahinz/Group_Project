@@ -6,6 +6,7 @@ from Modules.BeesDevelopment.Defines import *
 import tkinter as tk
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+import math
 
 
 class Simulation():
@@ -136,6 +137,12 @@ class Simulation():
         self.imago_nectar.append(self.bee_hive.nectar_collectors)
         self.imago_pollen.append(self.bee_hive.pollen_collectors)
         self.imago_drone.append(self.bee_hive.imago_drone_counter)
+    def xlabel(self, max):
+        xlabel = []
+        shift = math.ceil(max/XSHIFT)
+        for i in range(0,XSHIFT):
+            xlabel.append(i*shift)
+        return xlabel
 
     def generate_eggs_chart(self):
         plt.close(self.fig1)
@@ -143,19 +150,14 @@ class Simulation():
         plt.title("Eggs")
         freq_series = pd.Series(self.eggs)
         ax = freq_series.plot(kind='bar')
-        x_axis = list(range(0, len(self.eggs)))
-        ax.set_xticklabels(x_axis)
-        ax.set_yticks(self.eggs)
-        #plt.savefig("Plots/eggs_plot.png")
+        plt.xticks(self.xlabel(len(self.eggs)) ,rotation=90)
         plt.show(block=False)
         plt.close(self.fig12)
         self.fig12 = plt.figure(12)
         plt.title("Generated eggs per day")
         freq_series = pd.Series(self.income_eggs)
+        plt.xticks(self.xlabel(len(self.income_eggs)) ,rotation=90)
         ax = freq_series.plot(kind='bar')
-        x_axis = list(range(0, len(self.income_eggs)))
-        ax.set_xticklabels(x_axis)
-        ax.set_yticks(self.income_eggs)
         plt.savefig("generated_eggs_plot.png")
 
 
@@ -165,9 +167,7 @@ class Simulation():
         plt.title("Larvas")
         freq_series = pd.Series(self.larvas)
         ax = freq_series.plot(kind='bar')
-        x_axis = list(range(0, len(self.larvas)))
-        ax.set_xticks(x_axis)
-        ax.set_yticks(self.larvas)
+        plt.xticks(self.xlabel(len(self.larvas)), rotation=90)
         # plt.savefig("Plots/larvas_plot.png")
         plt.show(block=False)
         
@@ -177,9 +177,7 @@ class Simulation():
         plt.title("Before pupas")
         freq_series = pd.Series(self.before_pupas)
         ax = freq_series.plot(kind='bar')
-        x_axis = list(range(0, len(self.before_pupas)))
-        ax.set_xticks(x_axis)
-        ax.set_yticks(self.before_pupas)
+        plt.xticks(self.xlabel(len(self.before_pupas)), rotation=90)
         # plt.savefig("Plots/before_pupas_plot.png")
         plt.show(block=False)
         
@@ -189,9 +187,7 @@ class Simulation():
         plt.title("Before pupas drone")
         freq_series = pd.Series(self.before_pupas_drone)
         ax = freq_series.plot(kind='bar')
-        x_axis = list(range(0, len(self.before_pupas_drone)))
-        ax.set_xticks(x_axis)
-        ax.set_yticks(self.before_pupas_drone)
+        plt.xticks(self.xlabel(len(self.before_pupas_drone)), rotation=90)
         # plt.savefig("Plots/before_pupas_drone_plot.png")
         plt.show(block=False)
         
@@ -201,9 +197,7 @@ class Simulation():
         plt.title("Pupas")
         freq_series = pd.Series(self.pupas)
         ax = freq_series.plot(kind='bar')
-        x_axis = list(range(0, len(self.pupas)))
-        ax.set_xticks(x_axis)
-        ax.set_yticks(self.pupas)
+        plt.xticks(self.xlabel(len(self.pupas)), rotation=90)
         # plt.savefig("Plots/pupas_plot.png")
         plt.show(block=False)
         
@@ -213,9 +207,7 @@ class Simulation():
         plt.title("Pupas drone")
         freq_series = pd.Series(self.pupas_drone)
         ax = freq_series.plot(kind='bar')
-        x_axis = list(range(0, len(self.pupas_drone)))
-        ax.set_xticks(x_axis)
-        ax.set_yticks(self.pupas_drone)
+        plt.xticks(self.xlabel(len(self.pupas_drone)), rotation=90)
         # plt.savefig("Plots/pupas_drone_plot.png")
         plt.show(block=False)
         
@@ -225,9 +217,7 @@ class Simulation():
         plt.title("Imago young")
         freq_series = pd.Series(self.imago_young)
         ax = freq_series.plot(kind='bar')
-        x_axis = list(range(0, len(self.imago_young)))
-        ax.set_xticks(x_axis)
-        ax.set_yticks(self.imago_young)
+        plt.xticks(self.xlabel(len(self.imago_young)), rotation=90)
         # plt.savefig("Plots/imago_young_plot.png")
         plt.show(block=False)
         
@@ -237,9 +227,7 @@ class Simulation():
         plt.title("Imago nectar collectors")
         freq_series = pd.Series(self.imago_nectar)
         ax = freq_series.plot(kind='bar')
-        x_axis = list(range(0, len(self.imago_nectar)))
-        ax.set_xticks(x_axis)
-        ax.set_yticks(self.imago_nectar)
+        plt.xticks(self.xlabel(len(self.imago_nectar)), rotation=90)
         # plt.savefig("Plots/imago_nectar_plot.png")
         plt.show(block=False)
         
@@ -249,9 +237,7 @@ class Simulation():
         plt.title("Imago pollen collectors")
         freq_series = pd.Series(self.imago_pollen)
         ax = freq_series.plot(kind='bar')
-        x_axis = list(range(0, len(self.imago_pollen)))
-        ax.set_xticks(x_axis)
-        ax.set_yticks(self.imago_pollen)
+        plt.xticks(self.xlabel(len(self.imago_pollen)), rotation=90)
         # plt.savefig("Plots/imago_pollen_plot.png")
         plt.show(block=False)
         
@@ -261,9 +247,7 @@ class Simulation():
         plt.title("Imago drone")
         freq_series = pd.Series(self.imago_drone)
         ax = freq_series.plot(kind='bar')
-        x_axis = list(range(0, len(self.imago_drone)))
-        ax.set_xticks(x_axis)
-        ax.set_yticks(self.imago_drone)
+        plt.xticks(self.xlabel(len(self.drone)), rotation=90)
         # plt.savefig("Plots/imago_drone_plot.png")
         plt.show(block=False)
         
