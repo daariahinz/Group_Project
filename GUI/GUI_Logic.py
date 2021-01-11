@@ -1,5 +1,6 @@
 import random
 import pandas
+import Modules.BeesDevelopment.Defines
 
 from GUI.GUI_BeesDevelopment import *
 from Examples.SimulationConstans import *
@@ -48,7 +49,6 @@ class LogicInterface(QWidget):
         self.initialize_day_length(self.data_frame_for_temperature_and_day_length)
 
         grid = QGridLayout()
-        self.simulation = Simulation()
         self.laying_eggs = sim_eggs
         self.eggs = eggs
         self.bees_num_value = bees
@@ -135,6 +135,8 @@ class LogicInterface(QWidget):
 
     @pyqtSlot()
     def on_click_start(self):
+        update_defines(self.bees.value())
+        self.simulation = Simulation()
         for day in range(1, NUM_OF_SIMULATED_DAYS):
             self.day_index = day
             self.generate_eggs()
@@ -143,12 +145,12 @@ class LogicInterface(QWidget):
             if DEBUG_PRINT:
                 print("Number of eggs generated : " + str(eggs))
             self.simulation.simple_run(eggs)
-            amount_of_collectors = self.bees.value() + self.simulation.bee_hive.nectar_collectors + self.simulation.bee_hive.pollen_collectors
+            amount_of_bees = self.simulation.bee_hive.sum_of_bees()
             if DEBUG_PRINT:
-                print("Number of collectors : " + str(amount_of_collectors))
+                print("Number of collectors : " + str(self.simulation.bee_hive.nectar_collectors + self.simulation.bee_hive.pollen_collectors))
 
             self.hive_processes_logic.simulate_process(
-                amount_of_collectors,
+                amount_of_bees,
                 self.daily_temperature[(self.temperature.value() * 30) + day],
                 self.daily_day_length[(self.temperature.value() * 30) + day])
 

@@ -21,6 +21,7 @@ class Simulation():
          "Imago workers nectar collectors", "Imago workers pollen collectors", "Imago drones"]
         self.bee_hive = BeesDevelopment(eggs_start, larvas_start, before_pupas_start, pupas_start, imagos_start,workers)
         self.eggs =[self.bee_hive.eggs_counter]
+        self.income_eggs =[]
         self.larvas=[self.bee_hive.larva_counter]
         self.before_pupas=[self.bee_hive.before_pupa_counter]
         self.before_pupas_drone =[self.bee_hive.before_pupa_drone_counter]
@@ -43,6 +44,7 @@ class Simulation():
         self.fig9 = plt.Figure()
         self.fig10 = plt.Figure()
         self.fig11 = plt.Figure()
+        self.fig12 = plt.Figure()
 
     def init_GUI(self):
         self.eggs_label = tk.Label(window, text="Puts number of new eggs:")
@@ -146,6 +148,16 @@ class Simulation():
         ax.set_yticks(self.eggs)
         #plt.savefig("Plots/eggs_plot.png")
         plt.show(block=False)
+        plt.close(self.fig12)
+        self.fig12 = plt.figure(12)
+        plt.title("Generated eggs per day")
+        freq_series = pd.Series(self.income_eggs)
+        ax = freq_series.plot(kind='bar')
+        x_axis = list(range(0, len(self.income_eggs)))
+        ax.set_xticklabels(x_axis)
+        ax.set_yticks(self.income_eggs)
+        plt.savefig("generated_eggs_plot.png")
+
 
     def generate_larvas_chart(self):
         plt.close(self.fig2)
@@ -304,6 +316,7 @@ class Simulation():
             self.generate_change_view()
                 
     def simple_run(self, eggs):
+        self.income_eggs.append(eggs)
         self.prev_count = [self.bee_hive.eggs_counter,self.bee_hive.larva_counter,self.bee_hive.before_pupa_counter,self.bee_hive.before_pupa_drone_counter,self.bee_hive.pupa_counter,self.bee_hive.pupa_drone_counter,self.bee_hive.imago_worker_young_counter,self.bee_hive.nectar_collectors,self.bee_hive.pollen_collectors,self.bee_hive.imago_drone_counter]
         self.bee_hive.simulate_day(int(eggs))
         self.current_count = [self.bee_hive.eggs_counter,self.bee_hive.larva_counter,self.bee_hive.before_pupa_counter,self.bee_hive.before_pupa_drone_counter,self.bee_hive.pupa_counter,self.bee_hive.pupa_drone_counter,self.bee_hive.imago_worker_young_counter,self.bee_hive.nectar_collectors,self.bee_hive.pollen_collectors,self.bee_hive.imago_drone_counter]
@@ -316,6 +329,13 @@ class Simulation():
     
     def generate_plot(self):
         self.check_checkboxes()
+
+def update_defines(bees_onstart):
+    LARVAS_START = int(0.25 * bees_onstart)
+    BFORE_PUPAS_START = int(0.25 * bees_onstart)
+    PUPAS_START = int(0.15 * bees_onstart)
+    IMAGOS_START = int(0.2 * bees_onstart)
+    WORKERS = int(0.15 * bees_onstart)
 
 window = tk.Tk()
 window.title("Bees development module")

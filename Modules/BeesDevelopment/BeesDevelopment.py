@@ -233,8 +233,8 @@ class BeesDevelopment:
         loop = self.pollen_collectors
         for i in range(1, loop):
             decide = random.randint(1, 100)
-            if decide > COEFFICIENT_IMAGO_ADULT_DIE:
-                old = random.randint(0, len(self.imago_worker_pollen_collectors) - 1)
+            old = random.randint(0, len(self.imago_worker_pollen_collectors) - 1)
+            if decide > COEFFICIENT_IMAGO_ADULT_DIE - (old-old/10):
                 if self.imago_worker_pollen_collectors[old] > 0:
                     self.imago_worker_pollen_collectors[old] -= 1
                     self.pollen_collectors -= 1
@@ -243,8 +243,8 @@ class BeesDevelopment:
         loop = self.nectar_collectors
         for i in range(1, loop):
             decide = random.randint(1, 100)
-            if decide > COEFFICIENT_IMAGO_ADULT_DIE:
-                old = random.randint(0, len(self.imago_worker_nectar_collectors) - 1)
+            old = random.randint(0, len(self.imago_worker_nectar_collectors) - 1)
+            if decide > COEFFICIENT_IMAGO_ADULT_DIE - (old-old/10):
                 if self.imago_worker_nectar_collectors[old] > 0:
                     self.imago_worker_nectar_collectors[old] -= 1
                     self.nectar_collectors -= 1
@@ -253,8 +253,8 @@ class BeesDevelopment:
         loop = self.imago_drone_counter
         for i in range(1, loop):
             decide = random.randint(1, 100)
-            if decide > COEFFICIENT_IMAGO_ADULT_DIE:
-                old = random.randint(0, len(self.imago_drone) - 1)
+            old = random.randint(0, len(self.imago_drone) - 1)
+            if decide > COEFFICIENT_IMAGO_ADULT_DRONE:
                 if self.imago_drone[old] > 0:
                     self.imago_drone[old] -= 1
                     self.imago_drone_counter -= 1
@@ -264,3 +264,6 @@ class BeesDevelopment:
     def simulate_day(self,new_eggs):
         self.new_fertility_of_bee_mother(new_eggs)
         self.simulate_natural_process_of_dying()
+
+    def sum_of_bees(self):
+        return self.larva_counter+self.larva_drone_counter+self.before_pupa_counter+self.before_pupa_drone_counter+self.pupa_drone_counter+self.pupa_counter+self.imago_worker_young_counter+self.nectar_collectors+self.pollen_collectors+self.imago_drone_counter

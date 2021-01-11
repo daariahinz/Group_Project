@@ -6,8 +6,6 @@ import matplotlib
 
 matplotlib.use('Qt5Agg')
 
-from GUI.GUI_BeesDevelopment import *
-
 import matplotlib.pyplot as plt
 from matplotlib import pyplot
 
@@ -59,10 +57,10 @@ class HiveProcessesLogic:
         self.collected_pollen_ctrl = ctrl.ControlSystem([rule1, rule2, rule3, rule4, rule5, rule6, rule12, rule13, rule14, rule15, rule16, rule17, rule18])
         self.collected_pollen = ctrl.ControlSystemSimulation(self.collected_pollen_ctrl)
 
-    def simulate_process(self, amount_of_collectors, temperature_value, day_length_value):
+    def simulate_process(self, amount_of_bees, temperature_value, day_length_value):
         self.collected_pollen.input['temperature'] = temperature_value
         self.collected_pollen.input['day length'] = day_length_value
-        self.collected_pollen.input['bees num'] = amount_of_collectors
+        self.collected_pollen.input['bees num'] = amount_of_bees
         self.collected_pollen.compute()
         self.pollen.view(sim=self.collected_pollen)
         #mngr = plt.get_current_fig_manager()
