@@ -7,27 +7,27 @@ from GUI.GUI_Logic import *
 
 class Logic():
     def __init__(self):
-        self.simulate_eggs = ctrl.Consequent(np.arange(0, 3000, 1), 'eggs')
-        self.temperature = ctrl.Antecedent(np.arange(0, 40, 1), 'temperature')
-        self.pollen = ctrl.Antecedent(np.arange(0, 14, 1), 'pollen')
-        self.day_length = ctrl.Antecedent(np.arange(8, 18, 1), 'day length')
-        self.bees_num = ctrl.Antecedent(np.arange(1, 80000, 1), 'bees num')
+        self.simulate_eggs = ctrl.Consequent(np.arange(0, 3001, 1), 'eggs')
+        self.temperature = ctrl.Antecedent(np.arange(-5, 41, 1), 'temperature')
+        self.pollen = ctrl.Antecedent(np.arange(0, 15, 1), 'pollen')
+        self.day_length = ctrl.Antecedent(np.arange(7, 18, 1), 'day length')
+        self.bees_num = ctrl.Antecedent(np.arange(1, 80001, 1), 'bees num')
 
-        self.pollen['poor'] = fuzz.trimf(self.pollen.universe, [0, 0, 4])
-        self.pollen['average'] = fuzz.trimf(self.pollen.universe, [3, 6.5, 10])
+        self.pollen['poor'] = fuzz.trimf(self.pollen.universe, [0, 0, 5])
+        self.pollen['average'] = fuzz.trimf(self.pollen.universe, [3, 7, 11])
         self.pollen['good'] = fuzz.trimf(self.pollen.universe, [9, 14, 14])
 
-        self.temperature['low'] = fuzz.trimf(self.temperature.universe, [0, 0, 15])
-        self.temperature['medium'] = fuzz.trimf(self.temperature.universe, [14, 20, 26])
-        self.temperature['high'] = fuzz.trimf(self.temperature.universe, [25, 40, 40])
+        self.temperature['low'] = fuzz.trimf(self.temperature.universe, [-5, -5, 15])
+        self.temperature['medium'] = fuzz.trimf(self.temperature.universe, [12, 19, 26])
+        self.temperature['high'] = fuzz.trimf(self.temperature.universe, [23, 40, 40])
 
-        self.day_length['short'] = fuzz.trimf(self.day_length.universe, [8, 8, 12])
-        self.day_length['average'] = fuzz.trimf(self.day_length.universe, [11, 13, 15])
-        self.day_length['long'] = fuzz.trimf(self.day_length.universe, [14, 17, 17])
+        self.day_length['short'] = fuzz.trimf(self.day_length.universe, [7, 7, 11])
+        self.day_length['average'] = fuzz.trimf(self.day_length.universe, [10, 12, 14])
+        self.day_length['long'] = fuzz.trimf(self.day_length.universe, [13, 17, 17])
 
-        self.bees_num['little'] = fuzz.trimf(self.bees_num.universe, [0, 0, 26000])
-        self.bees_num['medium'] = fuzz.trimf(self.bees_num.universe, [25000, 40000, 55000])
-        self.bees_num['a lot'] = fuzz.trimf(self.bees_num.universe, [54000, 80000, 80000])
+        self.bees_num['little'] = fuzz.trimf(self.bees_num.universe, [0, 0, 30000])
+        self.bees_num['medium'] = fuzz.trimf(self.bees_num.universe, [25000, 42500, 60000])
+        self.bees_num['a lot'] = fuzz.trimf(self.bees_num.universe, [55000, 80000, 80000])
 
         self.simulate_eggs['none'] = fuzz.trimf(self.simulate_eggs.universe, [0, 0, 50])
         self.simulate_eggs['very little'] = fuzz.trimf(self.simulate_eggs.universe, [49, 250, 500])
@@ -91,11 +91,12 @@ class Logic():
         self.day_length.view()
 
     def simulate_logic(self):
-        self.laying_eggs.input['temperature'] = 0
-        self.laying_eggs.input['pollen'] = 1
-        self.laying_eggs.input['day length'] = 8
-        self.laying_eggs.input['bees num'] = 5000
+        self.laying_eggs.input['temperature'] = 1
+        self.laying_eggs.input['pollen'] = 3
+        self.laying_eggs.input['day length'] = 9
+        self.laying_eggs.input['bees num'] = 15000
         self.laying_eggs.compute()
+
         app = QApplication(sys.argv)
         clock = LogicInterface(self.laying_eggs, self.simulate_eggs, self.bees_num,
                                self.pollen, self.temperature, self.day_length)
