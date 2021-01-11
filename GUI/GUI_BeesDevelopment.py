@@ -152,13 +152,16 @@ class Simulation():
         ax = freq_series.plot(kind='bar')
         plt.xticks(self.xlabel(len(self.eggs)) ,rotation=90)
         plt.show(block=False)
+
+    def generate_eggs_income_chart(self):
         plt.close(self.fig12)
         self.fig12 = plt.figure(12)
         plt.title("Generated eggs per day")
         freq_series = pd.Series(self.income_eggs)
-        plt.xticks(self.xlabel(len(self.income_eggs)) ,rotation=90)
         ax = freq_series.plot(kind='bar')
-        plt.savefig("generated_eggs_plot.png")
+        plt.xticks(self.xlabel(len(self.income_eggs)), rotation=90)
+        plt.show(block=False)
+        #plt.savefig("generated_eggs_plot.png")
 
 
     def generate_larvas_chart(self):
@@ -201,7 +204,7 @@ class Simulation():
         # plt.savefig("Plots/pupas_plot.png")
         plt.show(block=False)
         
-    def generate_pupa_chart(self):
+    def generate_pupa_drone_chart(self):
         plt.close(self.fig6)
         self.fig6 = plt.figure(6)
         plt.title("Pupas drone")
@@ -247,7 +250,7 @@ class Simulation():
         plt.title("Imago drone")
         freq_series = pd.Series(self.imago_drone)
         ax = freq_series.plot(kind='bar')
-        plt.xticks(self.xlabel(len(self.drone)), rotation=90)
+        plt.xticks(self.xlabel(len(self.imago_drone)), rotation=90)
         # plt.savefig("Plots/imago_drone_plot.png")
         plt.show(block=False)
         
@@ -277,7 +280,8 @@ class Simulation():
     
     def check_checkboxes(self):
         if(self.chk_eggs.get() == True):
-                self.generate_eggs_chart()
+            self.generate_eggs_chart()
+            self.generate_eggs_income_chart()
         if(self.chk_larvas.get()==True):
             self.generate_larvas_chart()
         if(self.chk_before_pupa.get()==True):
@@ -287,7 +291,7 @@ class Simulation():
         if(self.chk_pupa.get()==True):
             self.generate_pupa_chart()
         if(self.chk_pupa_drone.get()==True):
-            self.generate_pupa_chart()
+            self.generate_pupa_drone_chart()
         if(self.chk_imago_worker_young.get()==True):
             self.generate_imago_young_chart()
         if(self.chk_imago_worker_nectar_collectors.get()==True):
