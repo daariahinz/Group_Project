@@ -151,8 +151,8 @@ class LogicInterface(QWidget):
 
             self.hive_processes_logic.simulate_process(
                 amount_of_bees,
-                self.daily_temperature[(self.temperature.value() * 30) + day],
-                self.daily_day_length[(self.temperature.value() * 30) + day])
+                self.daily_temperature[((self.temperature.value() - 1) * 30) + day],
+                self.daily_day_length[((self.temperature.value() - 1) * 30) + day])
 
             if DEBUG_PRINT:
                 print(
@@ -174,11 +174,11 @@ class LogicInterface(QWidget):
         plt.close('all')
         self.on_apply()
 
-        print(self.daily_temperature[(self.temperature.value() * 30) + self.day_index])
-        print(self.daily_day_length[(self.temperature.value() * 30) + self.day_index])
+        print(self.daily_temperature[((self.temperature.value() - 1) * 30) + self.day_index])
+        print(self.daily_day_length[((self.temperature.value() - 1) * 30) + self.day_index])
 
-        self.laying_eggs.input['temperature'] = self.daily_temperature[(self.temperature.value() * 30) + self.day_index]
-        self.laying_eggs.input['day length'] = self.daily_day_length[(self.temperature.value() * 30) + self.day_index]
+        self.laying_eggs.input['temperature'] = self.daily_temperature[((self.temperature.value() - 1) * 30) + self.day_index]
+        self.laying_eggs.input['day length'] = self.daily_day_length[((self.temperature.value() - 1) * 30) + self.day_index]
 
         self.laying_eggs.compute()
         self.eggs.view(sim=self.laying_eggs)
